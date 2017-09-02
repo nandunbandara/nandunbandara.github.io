@@ -1,12 +1,17 @@
-
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 @import url('https://fonts.googleapis.com/css?family=Rubik+Mono+One');
 
 
+body{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+a{
+    cursor: hand;
+    cursor: pointer;
+}
+
 .landing-page{
-
-
-
-
 
 }
 
@@ -26,8 +31,19 @@
 
 .landing-page .nav-gutter{
     margin-top: 100px;
-    font-family: 'Alfa Slab One', cursive;
+    font-size: 20px;
 }
+
+.landing-page .nav-gutter a{
+    text-decoration: none;
+}
+
+.landing-page .social-gutter{
+    margin-top: 100px;
+    letter-spacing: 20px;
+}
+
+
 /*.landing-page .nav-gutter ul{*/
     /*list-style: none;*/
 /*}*/
