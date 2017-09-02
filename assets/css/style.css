@@ -1,0 +1,44 @@
+
+@import url('https://fonts.googleapis.com/css?family=Rubik+Mono+One');
+
+
+.landing-page{
+
+
+
+
+
+}
+
+.landing-page .intro-image-holder{
+    text-align: center;
+    align-content: center;
+    margin-top: 10%;
+}
+
+.landing-page .intro-image-holder h1{
+    font-family: 'Rubik Mono One', sans-serif;
+}
+
+.landing-page .intro-image-holder img{
+    margin: auto;
+}
+
+.landing-page .nav-gutter{
+    margin-top: 100px;
+    font-family: 'Alfa Slab One', cursive;
+}
+/*.landing-page .nav-gutter ul{*/
+    /*list-style: none;*/
+/*}*/
+
+/*.landing-page .nav-gutter ul li{*/
+    /*display: inline;*/
+    /*margin: 0 60px;*/
+/*}*/
+
+/*.landing-page .nav-gutter ul li a{*/
+    /*text-decoration: none;*/
+    /*cursor: hand;*/
+    /*cursor: pointer;*/
+/*}*/
