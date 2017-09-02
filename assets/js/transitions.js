@@ -13,7 +13,13 @@ $(document).ready(function(){
             });
         }
     });
-    $('#btt').hide();
+
+    var y = $(this).scrollTop();
+    if(y > 300){
+        $('#btt').fadeIn();
+    }else{
+        $('#btt').hide();
+    }
 });
 
 
