@@ -13,11 +13,12 @@
     <!--JS-->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/transitions.js"></script>
 </head>
 <body>
     <div class="background-image"></div>
     <!--Landing Page-->
-    <div class="landing-page">
+    <div class="landing-page" id="landingSection">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-sm-12">
@@ -34,10 +35,10 @@
             <div class="nav-gutter">
                 <div class="row">
                     <div class="col-md-2 col-md-offset-3 text-center">
-                        <a>About</a>
+                        <a href="#aboutSection">About</a>
                     </div>
                     <div class="col-md-2 text-center">
-                        <a>Resume</a>
+                        <a href="#resumeSection">Resume</a>
                     </div>
                     <div class="col-md-2 text-center">
                         <a href="http://blog.nandunb.me">Blog</a>
@@ -62,7 +63,7 @@
         </div>
     </div>
     <!--About Page-->
-    <div class="about-page">
+    <div class="about-page" id="aboutSection">
         <div class="container">
             <div class="col-md-6">
                 <img src="assets/images/developer.svg" class="img-responsive hidden-sm hidden-xs">
@@ -92,7 +93,7 @@
         </div>
     </div>
     <!--Resume-->
-    <div class="resume">
+    <div class="resume" id="resumeSection">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -236,5 +237,12 @@
             </div>
         </div>
     </div>
+    <!--Back to Top-->
+    <a href="#landingSection">
+        <div class="backToTop" id="btt">
+            <i class="fa fa-1x fa-chevron-up" aria-hidden="true"></i>
+            &nbsp;Back To Top
+        </div>
+    </a>
 </body>
 </html>
