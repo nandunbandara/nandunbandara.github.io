@@ -32,6 +32,10 @@ Landing Page
     height: auto;
 }
 
+.landing-page a{
+    text-decoration: none;
+}
+
 .landing-page .intro-image-holder{
     text-align: center;
     align-content: center;
@@ -51,10 +55,6 @@ Landing Page
 .landing-page .nav-gutter{
     margin-top: 10%;
     font-size: 20px;
-}
-
-.landing-page .nav-gutter a{
-    text-decoration: none;
 }
 
 .landing-page .social-gutter{
@@ -110,6 +110,12 @@ About Page
     border-bottom-right-radius: 10px;
     margin-bottom: 10px;
     display: inline-block;
+    transition: filter 0.5s;
+}
+
+.about-page .skill-set .skill:hover{
+    filter: brightness(1.8);
+    transition: filter 0.5s;
 }
 
 .about-page .skill-set .skill-pink{
@@ -149,12 +155,32 @@ Resume
     background-color: #0f0f0f;
     color: #ffffff;
     padding: 5px 15px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .resume .resume-item .resume-item-content{
-    padding: 20px;
+    padding: 0 20px 0 20px;
 }
 
 /*
 Small footer
  */
+.footer-sm{
+    color: #ffffff;
+    background-color: #0f0f0f;
+    padding: 20px 0 10px 0;
+}
+
+.footer-sm img{
+    margin: auto;
+    filter: brightness(0.9);
+}
+
+.footer-sm .footer-content{
+    margin-top: 10px;
+}
+
+.footer-sm .footer-content i{
+    margin-right: 20px;
+}
