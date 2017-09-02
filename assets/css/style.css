@@ -37,7 +37,7 @@ a{
 
 .landing-page .intro-image-holder img {
     margin: auto;
-    filter: grayscale(100%);
+    filter: brightness(0.9);
 }
 
 .landing-page .nav-gutter{
