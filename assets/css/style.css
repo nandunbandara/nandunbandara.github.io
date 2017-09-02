@@ -88,6 +88,7 @@ About Page
     color: #ffffff;
     height: auto;
     padding-top: 40px;
+    padding-bottom: 20px;
 }
 
 .about-page p{
@@ -108,11 +109,11 @@ About Page
     border-top-right-radius:  10px;
     border-bottom-right-radius: 10px;
     margin-bottom: 10px;
+    display: inline-block;
 }
 
 .about-page .skill-set .skill-pink{
     background-color: #E91E63;
-
 }
 
 .about-page .skill-set .skill-orange{
