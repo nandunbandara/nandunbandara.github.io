@@ -29,7 +29,7 @@ a{
 Landing Page
  */
 .landing-page{
-    height: 100vh;
+    height: auto;
 }
 
 .landing-page .intro-image-holder{
@@ -49,7 +49,7 @@ Landing Page
 }
 
 .landing-page .nav-gutter{
-    margin-top: 100px;
+    margin-top: 10%;
     font-size: 20px;
 }
 
@@ -58,7 +58,7 @@ Landing Page
 }
 
 .landing-page .social-gutter{
-    margin-top: 100px;
+    margin-top: 6%;
     letter-spacing: 20px;
     margin-bottom: 25px;
 }
@@ -86,7 +86,7 @@ About Page
 .about-page{
     background-color: #1b6d85;
     color: #ffffff;
-    height: 100vh;
+    height: auto;
     padding-top: 40px;
 }
 
@@ -153,3 +153,7 @@ Resume
 .resume .resume-item .resume-item-content{
     padding: 20px;
 }
+
+/*
+Small footer
+ */
