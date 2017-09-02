@@ -11,6 +11,16 @@ a{
     cursor: pointer;
 }
 
+.background-image{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background-image: url('../images/background.jpg');
+    height: 100vh;
+    filter: blur(10px);
+}
+
 .landing-page{
 
 }
@@ -25,8 +35,9 @@ a{
     font-family: 'Rubik Mono One', sans-serif;
 }
 
-.landing-page .intro-image-holder img{
+.landing-page .intro-image-holder img {
     margin: auto;
+    filter: grayscale(100%);
 }
 
 .landing-page .nav-gutter{
