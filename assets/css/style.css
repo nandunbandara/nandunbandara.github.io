@@ -1,3 +1,7 @@
+/*
+Author: Nandun Bandara
+02-Sept-2017
+ */
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 @import url('https://fonts.googleapis.com/css?family=Rubik+Mono+One');
 
@@ -17,12 +21,15 @@ a{
     right: 0;
     z-index: -1;
     background-image: url('../images/background.jpg');
-    height: 100vh;
+    height: 100%;
     filter: blur(10px);
 }
 
+/*
+Landing Page
+ */
 .landing-page{
-
+    height: 100vh;
 }
 
 .landing-page .intro-image-holder{
@@ -33,6 +40,7 @@ a{
 
 .landing-page .intro-image-holder h1{
     font-family: 'Rubik Mono One', sans-serif;
+    color: #E91E63;
 }
 
 .landing-page .intro-image-holder img {
@@ -52,6 +60,7 @@ a{
 .landing-page .social-gutter{
     margin-top: 100px;
     letter-spacing: 20px;
+    margin-bottom: 25px;
 }
 
 
@@ -69,3 +78,78 @@ a{
     /*cursor: hand;*/
     /*cursor: pointer;*/
 /*}*/
+
+/*
+About Page
+ */
+
+.about-page{
+    background-color: #1b6d85;
+    color: #ffffff;
+    height: 100vh;
+    padding-top: 40px;
+}
+
+.about-page p{
+    font-size: 16px;
+}
+
+.about-page img{
+    margin-top: 120px;
+}
+
+.about-page .skill-set{
+
+}
+
+.about-page .skill-set .skill{
+    padding: 10px;
+    width: 100px;
+    border-top-right-radius:  10px;
+    border-bottom-right-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.about-page .skill-set .skill-pink{
+    background-color: #E91E63;
+
+}
+
+.about-page .skill-set .skill-orange{
+    background-color: #FF9800;
+}
+
+.about-page .skill-set .skill-purple{
+    background-color: #673AB7;
+}
+
+/*
+Resume
+ */
+
+.resume{
+    background-color: #FFEB3B;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.resume img{
+    margin: auto;
+    filter: brightness(0.9);
+    margin-bottom: 30px;
+}
+
+
+.resume .resume-item{
+
+}
+
+.resume .resume-item .resume-item-title{
+    background-color: #0f0f0f;
+    color: #ffffff;
+    padding: 5px 15px;
+}
+
+.resume .resume-item .resume-item-content{
+    padding: 20px;
+}
