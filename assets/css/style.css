@@ -140,12 +140,15 @@ Resume
     padding-bottom: 50px;
 }
 
+.resume a{
+    text-decoration: none;
+}
+
 .resume img{
     margin: auto;
     filter: brightness(0.9);
     margin-bottom: 30px;
 }
-
 
 .resume .resume-item{
 
@@ -161,6 +164,15 @@ Resume
 
 .resume .resume-item .resume-item-content{
     padding: 0 20px 0 20px;
+}
+
+.resume .resume-item .resume-item-content h4{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.resume .resume-item .resume-item-content small{
+    font-size: 14px;
 }
 
 /*
