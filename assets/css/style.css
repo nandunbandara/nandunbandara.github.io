@@ -1,219 +1,28 @@
-/*
-Author: Nandun Bandara
-02-Sept-2017
- */
-@import url('https://fonts.googleapis.com/css?family=Ubuntu');
-@import url('https://fonts.googleapis.com/css?family=Rubik+Mono+One');
-
-
-body{
-    font-family: 'Ubuntu', sans-serif;
+.full-height {
+    height: 100vh;
 }
 
-a{
-    cursor: hand;
-    cursor: pointer;
-}
-
-.background-image{
-    position: fixed;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    background-image: url('../images/background.jpg');
-    height: 100%;
-    filter: blur(10px);
-}
-
-/*
-Landing Page
- */
-.landing-page{
-    height: auto;
-}
-
-.landing-page a{
-    text-decoration: none;
-}
-
-.landing-page .intro-image-holder{
+.info-wrapper {
+    position: absolute;
+    top: 35vh;
     text-align: center;
-    align-content: center;
-    margin-top: 10%;
+    width: 100%;
 }
 
-.landing-page .intro-image-holder h1{
-    font-family: 'Rubik Mono One', sans-serif;
-    color: #E91E63;
-}
-
-.landing-page .intro-image-holder img {
-    margin: auto;
-    filter: brightness(0.9);
-}
-
-.landing-page .nav-gutter{
-    margin-top: 10%;
-    font-size: 20px;
-}
-
-.landing-page .social-gutter{
-    margin-top: 6%;
-    letter-spacing: 20px;
-    margin-bottom: 25px;
-}
-
-
-/*.landing-page .nav-gutter ul{*/
-    /*list-style: none;*/
-/*}*/
-
-/*.landing-page .nav-gutter ul li{*/
-    /*display: inline;*/
-    /*margin: 0 60px;*/
-/*}*/
-
-/*.landing-page .nav-gutter ul li a{*/
-    /*text-decoration: none;*/
-    /*cursor: hand;*/
-    /*cursor: pointer;*/
-/*}*/
-
-/*
-About Page
- */
-
-.about-page{
-    background-color: #1b6d85;
-    color: #ffffff;
-    height: auto;
-    padding-top: 40px;
-    padding-bottom: 20px;
-}
-
-.about-page p{
-    font-size: 16px;
-}
-
-.about-page img{
-    margin-top: 120px;
-}
-
-.about-page .skill-set{
-
-}
-
-.about-page .skill-set .skill{
-    padding: 10px;
-    width: 100px;
-    border-top-right-radius:  10px;
-    border-bottom-right-radius: 10px;
-    margin-bottom: 10px;
-    display: inline-block;
-    transition: filter 0.5s;
-}
-
-.about-page .skill-set .skill:hover{
-    filter: brightness(1.8);
-    transition: filter 0.5s;
-}
-
-.about-page .skill-set .skill-pink{
-    background-color: #E91E63;
-}
-
-.about-page .skill-set .skill-orange{
-    background-color: #FF9800;
-}
-
-.about-page .skill-set .skill-purple{
-    background-color: #673AB7;
-}
-
-/*
-Resume
- */
-
-.resume{
-    background-color: #FFEB3B;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-.resume a{
-    text-decoration: none;
-}
-
-.resume img{
-    margin: auto;
-    filter: brightness(0.9);
-    margin-bottom: 30px;
-}
-
-.resume .resume-item{
-
-}
-
-.resume .resume-item .resume-item-title{
-    background-color: #0f0f0f;
-    color: #ffffff;
-    padding: 5px 15px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.resume .resume-item .resume-item-content{
-    padding: 0 20px 0 20px;
-}
-
-.resume .resume-item .resume-item-content h4{
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.resume .resume-item .resume-item-content small{
+.subtitle {
+    font-weight: 420;
     font-size: 14px;
+    color: #333;
 }
 
-/*
-Small footer
- */
-.footer-sm{
-    color: #ffffff;
-    background-color: #0f0f0f;
-    padding: 20px 0 10px 0;
+.subtext {
+    color: #ccc;
 }
 
-.footer-sm img{
-    margin: auto;
-    filter: brightness(0.9);
-}
-
-.footer-sm .footer-content{
-    margin-top: 10px;
-}
-
-.footer-sm .footer-content i{
-    margin-right: 20px;
-}
-
-/*
-Back to Top
- */
-.backToTop{
-    z-index: 99999;
-    background-color: #E91E63;
-    border-radius: 80px;
+.social-media {
+    margin-top: 40px;
+    width: 100%;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px;
-    color: #ffffff;
-    font-weight: bold;
-    transition: filter 0.5s;
-}
-
-.backToTop:hover{
-    filter: brightness(1.8);
-    transition: filter 0.5s;
+    bottom: 0;
+    text-align: center;
 }
