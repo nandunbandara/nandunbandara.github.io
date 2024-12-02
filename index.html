@@ -2,26 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nandun Bandara - Full Stack Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nandun Bandara | Full Stack Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Add AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'bounce-subtle': 'bounce 1s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-    <!--Stylesheets-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
-    <!--JS-->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/transitions.js"></script>
+    <!-- Firebase Analytics -->
     <script type="module">
-      // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-    
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      
       const firebaseConfig = {
         apiKey: "AIzaSyCzMOEjPNEsCJBU9gCJWD4wJpt2PRxJdCo",
         authDomain: "nandunbandara-5ba7d.firebaseapp.com",
@@ -32,28 +55,412 @@
         measurementId: "G-3GN20LDRWG"
       };
     
-      // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
     </script>
-</head>
-<body>
-    <div class="info-wrapper">
-        <p>Hi!</p>
-        <h1>I am Nandun Bandara</h1>
-        <p class="subtitle">Software Engineer
-            <a href="https://www.jeeve.com.au" target="_blank">@jeeve</a>
-        </p>
-        <p class="subtext">Angular | Node.js | Kubernetes | Docker | Cloud (AWS & GCP)</p>
-        <p style="margin-top: 4rem; display: flex; align-items: center; justify-content: center;">
-            <div style="margin-right: 1rem;" data-iframe-width="150" data-iframe-height="270" data-share-badge-id="92bc0dde-fc2c-4418-b207-d36ca70b0d33" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
-            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="f590cdee-63bf-4027-83c7-09b28b3e5869" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
-        </p>
-    </div>
 
-    <div class="social-media">
-        <p>Find my work on <a href="https://github.com/nandunbandara" target="_blank">GitHub</a> | 
-            Follow me on Twitter <a href="https://twitter.com/nandunbandaraa" target="_blank">@nandunbandaraa</a></p>
-    </div>
+    <!-- Add Three.js and GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    
+    <!-- Add custom styles for 3D effects -->
+    <style>
+        .canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .hover-float {
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .hover-float:hover {
+            transform: translateZ(20px) rotateX(2deg) rotateY(2deg);
+        }
+
+        .cursor-dot {
+            width: 5px;
+            height: 5px;
+            background-color: black;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor-outline {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(0,0,0,0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+        }
+    </style>
+</head>
+<body class="font-inter">
+    <!-- 3D background canvas -->
+    <div class="canvas-container" id="background-canvas"></div>
+
+    <nav class="fixed w-full px-16 py-8 flex justify-between items-center bg-white/90 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="font-bold text-xl">NB</div>
+        <div class="space-x-6">
+            <a href="#experience" class="font-medium text-gray-800 hover:text-gray-600">Experience</a>
+            <a href="#skills" class="font-medium text-gray-800 hover:text-gray-600">Skills</a>
+            <a href="#certifications" class="font-medium text-gray-800 hover:text-gray-600">Certifications</a>
+            <a href="#contact" class="font-medium text-gray-800 hover:text-gray-600">Contact</a>
+        </div>
+        <div class="cursor-pointer">🌙</div>
+    </nav>
+
+    <header class="min-h-screen flex items-center px-16" data-aos="fade-up" data-aos-duration="1000">
+        <div class="max-w-3xl">
+            <img src="assets/images/15895895_1412198105457867_3122597636744650875_o.jpg" 
+                 alt="Nandun Bandara" 
+                 class="w-24 h-24 rounded-full mb-8 object-cover animate-fade-in ring-4 ring-black/5 shadow-lg">
+            <h1 class="text-5xl font-bold mb-4 animate-slide-up">
+                👋 Hello! I'm Nandun Bandara
+            </h1>
+            <h2 class="text-2xl font-semibold mb-4 animate-slide-up flex items-center gap-2" style="animation-delay: 200ms">
+                👨‍💻 Software Engineer based in 
+                <span class="flex items-center gap-1">
+                    Canberra, Australia 
+                    <span class="text-2xl">🇦🇺</span>
+                </span>
+            </h2>
+            <p class="text-gray-600 text-lg leading-relaxed animate-slide-up" style="animation-delay: 400ms">
+                🚀 Passionate Software Engineer with expertise in Health and CareTech. 
+                💡 Specialized in designing and developing microservices with Node.js and Golang, 
+                ☁️ maintaining production-grade Kubernetes clusters on AWS with Terraform, 
+                🔄 and managing CI/CD pipelines on GitLab.
+            </p>
+            <div class="mt-8 space-x-4 animate-slide-up" style="animation-delay: 600ms">
+                <a href="mailto:nandunbandaraa@gmail.com" class="bg-black text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition inline-block">
+                    Contact Me
+                </a>
+                <a href="https://linkedin.com/in/nandunbandara" target="_blank" class="border border-black px-8 py-4 rounded-lg font-medium hover:bg-gray-50 transition inline-block">
+                    LinkedIn Profile
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="experience" class="px-16 py-20">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3" data-aos="fade-up">
+            💼 Work Experience
+        </h2>
+        <div class="grid grid-cols-1 gap-8">
+            <div class="p-8 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover-float" 
+                 data-aos="fade-up" 
+                 data-aos-delay="100">
+                <div class="font-bold text-xl mb-2">Jeeve Solutions</div>
+                <div class="mb-4">
+                    <h3 class="font-semibold">Software Engineer</h3>
+                    <p class="text-gray-600">September 2023 - Present | Melbourne, Australia</p>
+                </div>
+                <ul class="list-disc ml-4 text-gray-700 space-y-2">
+                    <li>Design and implement APIs (Node.js) with focus on best practices, test coverage, and documentation</li>
+                    <li>Collaborate in architectural decisions for system expansion</li>
+                    <li>Integrate third-party services using OAuth and client credentials</li>
+                    <li>Architect frontend (Angular) for scalability and maintainability</li>
+                </ul>
+            </div>
+
+            <div class="p-8 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover-float" 
+                 data-aos="fade-up" 
+                 data-aos-delay="200">
+                <div class="font-bold text-xl mb-2">CareHires</div>
+                <div class="mb-4">
+                    <h3 class="font-semibold">Senior Software Engineer</h3>
+                    <p class="text-gray-600">December 2019 - September 2023 | London, UK</p>
+                </div>
+                <ul class="list-disc ml-4 text-gray-700 space-y-2">
+                    <li>Led backend and infrastructure development using Kubernetes on AWS, Terraform, Node.js, and Golang</li>
+                    <li>Maintained production-grade H/A Kubernetes clusters on EKS</li>
+                    <li>Managed CI/CD pipelines on GitLab</li>
+                    <li>Provided technical leadership and code review</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="bg-gray-50 px-16 py-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3" data-aos="fade-up">
+            🛠️ Core Competencies
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300" 
+                 data-aos="fade-up" 
+                 data-aos-delay="100">
+                <h3 class="font-semibold mb-4 flex items-center gap-2">
+                    🔧 Backend Development
+                </h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li class="flex items-center gap-2">
+                        <img src="https://nodejs.org/static/images/logo.svg" class="w-4 h-4" alt="Node.js">
+                        Node.js
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <img src="https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg" class="w-4 h-4" alt="Golang">
+                        Golang
+                    </li>
+                    <li class="flex items-center gap-2">🔌 API Development</li>
+                    <li class="flex items-center gap-2">🔄 Microservices</li>
+                </ul>
+            </div>
+            <div class="p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300" 
+                 data-aos="fade-up" 
+                 data-aos-delay="200">
+                <h3 class="font-semibold mb-4">Cloud & DevOps</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li>AWS (Certified Solutions Architect)</li>
+                    <li>Kubernetes (CKA)</li>
+                    <li>Terraform</li>
+                    <li>CI/CD (GitLab)</li>
+                </ul>
+            </div>
+            <div class="p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300" 
+                 data-aos="fade-up" 
+                 data-aos-delay="300">
+                <h3 class="font-semibold mb-4">Frontend Development</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li>Angular</li>
+                    <li>TypeScript</li>
+                    <li>Responsive Design</li>
+                    <li>UI/UX Best Practices</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="px-16 py-20">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3" data-aos="fade-up">
+            🏆 Certifications & Awards
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-6" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                    📜 Certifications
+                </h3>
+                <div class="space-y-4">
+                    <a href="https://www.credly.com/badges/your-aws-badge-id" 
+                       target="_blank" 
+                       class="p-4 border border-gray-200 rounded-lg flex items-center gap-3 hover:shadow-md transition-all duration-300 group">
+                        <img src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Solutions-Architect-Associate_badge.3419559c682629072f1eb968d59dea0741772c0f.png" 
+                             class="w-12 h-12 group-hover:scale-110 transition-transform duration-300" 
+                             alt="AWS Certification">
+                        <div>
+                            <p class="font-medium">AWS Certified Solutions Architect – Associate</p>
+                            <p class="text-sm text-gray-500">Click to verify credential</p>
+                        </div>
+                    </a>
+                    <a href="https://www.credly.com/badges/your-cka-badge-id" 
+                       target="_blank" 
+                       class="p-4 border border-gray-200 rounded-lg flex items-center gap-3 hover:shadow-md transition-all duration-300 group">
+                        <img src="https://www.cncf.io/wp-content/uploads/2020/08/kubernetes-cka-color.svg" 
+                             class="w-12 h-12 group-hover:scale-110 transition-transform duration-300" 
+                             alt="CKA Certification">
+                        <div>
+                            <p class="font-medium">Certified Kubernetes Administrator</p>
+                            <p class="text-sm text-gray-500">Click to verify credential</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="space-y-6" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                    🏅 Awards & Publications
+                </h3>
+                <div class="space-y-4">
+                    <div class="p-4 border border-gray-200 rounded-lg">
+                        <h4 class="font-medium mb-2">CTF Competitions</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-center gap-2">🏆 Winners at "Hack Me If You Can" CTF 2015</li>
+                            <li class="flex items-center gap-2">🏆 Winners at "Hack Me If You Can" CTF 2016</li>
+                            <li class="flex items-center gap-2">🏆 Winners at HackIT 2K17 CTF</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 border border-gray-200 rounded-lg">
+                        <h4 class="font-medium mb-2">Academic Achievements</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-center gap-2">🎓 Regional Topper (Asia) - Mathematics</li>
+                            <li class="flex items-center gap-2">🎓 Regional Topper (Asia) - Computer Science</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 border border-gray-200 rounded-lg">
+                        <h4 class="font-medium mb-2">Publications</h4>
+                        <a href="link-to-your-publication" 
+                           target="_blank" 
+                           class="text-gray-700 hover:text-black transition-colors flex items-center gap-2">
+                            📄 Decentralized Ledger for Land and Property Transactions in Sri Lanka
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-gray-50 px-16 py-20 text-center">
+        <div class="max-w-2xl mx-auto" data-aos="fade-up">
+            <h2 class="text-3xl font-bold mb-8">🤝 Let's Connect</h2>
+            <div class="space-y-4">
+                <p class="text-gray-600">📧 nandunbandaraa@gmail.com</p>
+                <p class="text-gray-600">📱 +61 473235378</p>
+                <a href="https://linkedin.com/in/nandunbandara" 
+                   target="_blank" 
+                   class="bg-black text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition inline-flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    Connect on LinkedIn
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('py-4', 'shadow-md');
+                nav.classList.remove('py-8');
+            } else {
+                nav.classList.add('py-8');
+                nav.classList.remove('py-4', 'shadow-md');
+            }
+        });
+    </script>
+
+    <!-- Add hover-float class to interactive elements -->
+    <script>
+        document.querySelectorAll('a, button, .hover-float').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                gsap.to(cursorOutline, {
+                    scale: 1.5,
+                    duration: 0.3
+                });
+            });
+
+            element.addEventListener('mouseleave', () => {
+                gsap.to(cursorOutline, {
+                    scale: 1,
+                    duration: 0.3
+                });
+            });
+        });
+    </script>
+
+    <!-- Add the following script before closing body tag -->
+    <script>
+        // Three.js Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('background-canvas').appendChild(renderer.domElement);
+
+        // Create animated background particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 5000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 5;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.005,
+            color: '#000000'
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+        camera.position.z = 2;
+
+        // // Custom cursor animation
+        // const cursorDot = document.querySelector('.cursor-dot');
+        // const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            gsap.to(cursorDot, {
+                x: posX - 2.5,
+                y: posY - 2.5,
+                duration: 0.1
+            });
+
+            gsap.to(cursorOutline, {
+                x: posX - 15,
+                y: posY - 15,
+                duration: 0.3
+            });
+        });
+
+        // Animate particles
+        function animate() {
+            requestAnimationFrame(animate);
+            particlesMesh.rotation.x += 0.0003;
+            particlesMesh.rotation.y += 0.0005;
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Parallax effect for hero section
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.005;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.005;
+
+            gsap.to('.hero-content', {
+                x: moveX,
+                y: moveY,
+                duration: 1,
+                ease: 'power2.out'
+            });
+        });
+
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: target,
+                    ease: 'power2.inOut'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
