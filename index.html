@@ -483,6 +483,37 @@
             position: relative;
             overflow: hidden;
         }
+
+        /* Add perspective container styles */
+        .gyro-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .gyro-content {
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease-out;
+        }
+
+        @media (hover: hover) {
+            /* Desktop hover effect */
+            .gyro-content {
+                transition: transform 0.5s cubic-bezier(0.03, 0.98, 0.52, 0.99);
+            }
+        }
+
+        /* Smooth transition for content */
+        .content-3d {
+            transform: translateZ(50px);
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Add depth to different elements */
+        .depth-1 { transform: translateZ(10px); }
+        .depth-2 { transform: translateZ(20px); }
+        .depth-3 { transform: translateZ(30px); }
+        .depth-4 { transform: translateZ(40px); }
     </style>
 
     <!-- Dark mode setup -->
@@ -579,7 +610,7 @@
         </div>
     </div>
 
-    <header class="min-h-screen flex items-center px-16 parallax-wrapper" data-aos="fade-up" data-aos-duration="1000">
+    <header class="min-h-screen flex items-center px-16 parallax-wrapper gyro-container" data-aos="fade-up" data-aos-duration="1000">
         <!-- Add the tech background -->
         <div class="tech-background">
             <div class="tech-grid"></div>
@@ -587,17 +618,17 @@
             <div class="tech-lines"></div>
         </div>
 
-        <div class="max-w-3xl relative z-10">
+        <div class="max-w-3xl relative z-10 gyro-content">
             <img src="assets/images/15895895_1412198105457867_3122597636744650875_o.jpg" 
                  alt="Nandun Bandara" 
-                 class="w-24 h-24 rounded-full mb-8 object-cover animate-fade-in ring-4 ring-black/5 shadow-lg">
-            <h1 class="text-5xl font-bold mb-4 animate-slide-up">
+                 class="w-24 h-24 rounded-full mb-8 object-cover animate-fade-in ring-4 ring-black/5 shadow-lg depth-4">
+            <h1 class="text-5xl font-bold mb-4 animate-slide-up depth-3">
                 👋 Hello! I'm <span class="glitch">Nandun Bandara</span> | Senior Full Stack Engineer
             </h1>
-            <h2 class="text-2xl font-semibold mb-4 animate-slide-up flex items-center gap-2">
+            <h2 class="text-2xl font-semibold mb-4 animate-slide-up depth-2">
                 👨‍ Cloud Native & DevOps Specialist in Canberra, Australia 🇦🇺
             </h2>
-            <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed animate-slide-up">
+            <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed animate-slide-up depth-1">
                 🚀 Experienced Software Engineer specializing in building scalable cloud-native applications and robust DevOps solutions. 
                 Expert in designing microservices architectures with Node.js and Golang, implementing AWS cloud solutions, 
                 and managing enterprise-grade Kubernetes clusters. AWS Certified Solutions Architect and Certified Kubernetes Administrator 
@@ -1157,6 +1188,113 @@
                 y: rate,
                 duration: 0.1
             });
+        });
+    </script>
+
+    <!-- Add this script before closing body -->
+    <script>
+        // Gyroscope and device orientation handling
+        class GyroEffect {
+            constructor() {
+                this.container = document.querySelector('.gyro-container');
+                this.content = document.querySelector('.gyro-content');
+                this.initialX = 0;
+                this.initialY = 0;
+                this.maxAngle = 10; // Maximum rotation angle
+
+                this.init();
+            }
+
+            init() {
+                if (window.DeviceOrientationEvent) {
+                    // Request permission for iOS 13+ devices
+                    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                        document.body.addEventListener('click', () => {
+                            DeviceOrientationEvent.requestPermission()
+                                .then(permissionState => {
+                                    if (permissionState === 'granted') {
+                                        this.bindGyroEvents();
+                                    }
+                                })
+                                .catch(console.error);
+                        }, { once: true });
+                    } else {
+                        // Handle non-iOS devices
+                        this.bindGyroEvents();
+                    }
+                }
+
+                // Fallback to mouse movement on desktop
+                this.container.addEventListener('mousemove', (e) => {
+                    if (window.innerWidth > 768) {
+                        this.handleMouseMove(e);
+                    }
+                });
+            }
+
+            bindGyroEvents() {
+                window.addEventListener('deviceorientation', (e) => {
+                    this.handleGyro(e);
+                });
+            }
+
+            handleGyro(event) {
+                const x = event.beta; // X-axis rotation [-180,180]
+                const y = event.gamma; // Y-axis rotation [-90,90]
+
+                if (x === null || y === null) return;
+
+                // Constrain the rotation
+                const constrainedX = Math.max(Math.min(x, this.maxAngle), -this.maxAngle);
+                const constrainedY = Math.max(Math.min(y, this.maxAngle), -this.maxAngle);
+
+                // Apply the transform
+                this.content.style.transform = `
+                    rotateX(${-constrainedX}deg) 
+                    rotateY(${constrainedY}deg)
+                    translateZ(50px)
+                `;
+
+                // Update parallax effect for child elements
+                const elements = this.content.querySelectorAll('[class*="depth-"]');
+                elements.forEach(el => {
+                    const depth = parseInt(el.className.match(/depth-(\d+)/)[1]);
+                    const factor = depth * 0.2;
+                    el.style.transform = `
+                        translate3d(${constrainedY * factor}px, ${constrainedX * factor}px, ${depth * 10}px)
+                    `;
+                });
+            }
+
+            handleMouseMove(event) {
+                const rect = this.container.getBoundingClientRect();
+                const x = (event.clientY - rect.top) / rect.height - 0.5;
+                const y = (event.clientX - rect.left) / rect.width - 0.5;
+
+                const rotateX = x * this.maxAngle * 2;
+                const rotateY = y * this.maxAngle * 2;
+
+                this.content.style.transform = `
+                    rotateX(${-rotateX}deg) 
+                    rotateY(${rotateY}deg)
+                    translateZ(50px)
+                `;
+
+                // Update parallax effect for child elements
+                const elements = this.content.querySelectorAll('[class*="depth-"]');
+                elements.forEach(el => {
+                    const depth = parseInt(el.className.match(/depth-(\d+)/)[1]);
+                    const factor = depth * 0.2;
+                    el.style.transform = `
+                        translate3d(${y * factor * 100}px, ${x * factor * 100}px, ${depth * 10}px)
+                    `;
+                });
+            }
+        }
+
+        // Initialize the effect
+        window.addEventListener('DOMContentLoaded', () => {
+            new GyroEffect();
         });
     </script>
 </body>
