@@ -15,6 +15,7 @@
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -106,21 +107,77 @@
             transition: transform 0.1s;
         }
     </style>
+
+    <!-- Dark mode setup -->
+    <script>
+        // Check for saved dark mode preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Nandun Bandara - Full Stack Engineer specializing in Node.js, Golang, and AWS. Certified Solutions Architect and Kubernetes Administrator based in Canberra, Australia.">
+    <meta name="keywords" content="Full Stack Engineer, Software Engineer, Node.js, Golang, AWS, Kubernetes, DevOps, Canberra">
+    <meta name="author" content="Nandun Bandara">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Nandun Bandara | Full Stack Engineer">
+    <meta property="og:description" content="Full Stack Engineer specializing in Node.js, Golang, and AWS. Based in Canberra, Australia.">
+    <meta property="og:image" content="assets/images/15895895_1412198105457867_3122597636744650875_o.jpg">
+    <meta property="og:url" content="https://nandunbandara.com">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nandun Bandara | Full Stack Engineer">
+    <meta name="twitter:description" content="Full Stack Engineer specializing in Node.js, Golang, and AWS. Based in Canberra, Australia.">
 </head>
-<body class="font-inter">
+<body class="font-inter dark:bg-gray-900 dark:text-white">
     <!-- 3D background canvas -->
     <div class="canvas-container" id="background-canvas"></div>
 
-    <nav class="fixed w-full px-16 py-8 flex justify-between items-center bg-white/90 backdrop-blur-md z-50 transition-all duration-300">
-        <div class="font-bold text-xl">NB</div>
-        <div class="space-x-6">
-            <a href="#experience" class="font-medium text-gray-800 hover:text-gray-600">Experience</a>
-            <a href="#skills" class="font-medium text-gray-800 hover:text-gray-600">Skills</a>
-            <a href="#certifications" class="font-medium text-gray-800 hover:text-gray-600">Certifications</a>
-            <a href="#contact" class="font-medium text-gray-800 hover:text-gray-600">Contact</a>
+    <nav class="fixed w-full px-4 md:px-16 py-4 md:py-8 flex justify-between items-center bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="font-bold text-xl dark:text-white">NB</div>
+        
+        <!-- Mobile menu button -->
+        <button class="md:hidden" id="mobile-menu-button">
+            <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+        
+        <!-- Desktop menu -->
+        <div class="hidden md:flex space-x-6">
+            <a href="#experience" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Experience</a>
+            <a href="#skills" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Skills</a>
+            <a href="#certifications" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Certifications</a>
+            <a href="#contact" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Contact</a>
         </div>
-        <div class="cursor-pointer">🌙</div>
+        
+        <!-- Dark mode toggle -->
+        <button id="theme-toggle" class="p-2 rounded-lg dark:text-white">
+            <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                <!-- Sun icon -->
+                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
+            </svg>
+            <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                <!-- Moon icon -->
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+            </svg>
+        </button>
     </nav>
+
+    <!-- Mobile menu (hidden by default) -->
+    <div class="fixed inset-0 bg-white dark:bg-gray-900 z-40 transform translate-x-full transition-transform duration-300 md:hidden" id="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#experience" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Experience</a>
+            <a href="#skills" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Skills</a>
+            <a href="#certifications" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Certifications</a>
+            <a href="#contact" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Contact</a>
+        </div>
+    </div>
 
     <header class="min-h-screen flex items-center px-16" data-aos="fade-up" data-aos-duration="1000">
         <div class="max-w-3xl">
@@ -154,7 +211,7 @@
         </div>
     </header>
 
-    <section id="experience" class="px-16 py-20">
+    <section id="experience" class="px-16 py-20 dark:bg-gray-900">
         <h2 class="text-3xl font-bold mb-12 flex items-center gap-3" data-aos="fade-up">
             💼 Work Experience
         </h2>
@@ -193,12 +250,12 @@
         </div>
     </section>
 
-    <section id="skills" class="bg-gray-50 px-16 py-20">
+    <section id="skills" class="bg-gray-50 dark:bg-gray-800 px-4 md:px-16 py-20">
         <h2 class="text-3xl font-bold mb-8 flex items-center gap-3" data-aos="fade-up">
             🛠️ Core Competencies
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300" 
+            <div class="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-300" 
                  data-aos="fade-up" 
                  data-aos-delay="100">
                 <h3 class="font-semibold mb-4 flex items-center gap-2">
@@ -217,7 +274,7 @@
                     <li class="flex items-center gap-2">🔄 Microservices</li>
                 </ul>
             </div>
-            <div class="p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300" 
+            <div class="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-300" 
                  data-aos="fade-up" 
                  data-aos-delay="200">
                 <h3 class="font-semibold mb-4">Cloud & DevOps</h3>
@@ -228,7 +285,7 @@
                     <li>CI/CD (GitLab)</li>
                 </ul>
             </div>
-            <div class="p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300" 
+            <div class="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-300" 
                  data-aos="fade-up" 
                  data-aos-delay="300">
                 <h3 class="font-semibold mb-4">Frontend Development</h3>
@@ -460,6 +517,44 @@
                     ease: 'power2.inOut'
                 });
             });
+        });
+    </script>
+
+    <script>
+        // Dark mode toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        themeToggleBtn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            
+            // Save preference to localStorage
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('translate-x-full');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.add('translate-x-full');
+            }
         });
     </script>
 </body>
