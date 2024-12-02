@@ -73,7 +73,30 @@
             width: 100%;
             height: 100vh;
             z-index: -1;
-            opacity: 0.1;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .canvas-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg, 
+                rgba(255,255,255,0.95) 0%,
+                rgba(255,255,255,0.98) 100%
+            );
+        }
+
+        .dark .canvas-container::after {
+            background: linear-gradient(
+                45deg, 
+                rgba(17,24,39,0.95) 0%,
+                rgba(17,24,39,0.98) 100%
+            );
         }
 
         .hover-float {
@@ -106,6 +129,127 @@
             z-index: 9999;
             transition: transform 0.1s;
         }
+
+        html {
+            scroll-padding-top: 100px; /* Adjust this value based on your header height */
+            scroll-behavior: smooth;
+        }
+        
+        /* Add these to your existing styles */
+        section {
+            scroll-margin-top: 100px; /* Adjust this value based on your header height */
+        }
+
+        /* Update existing styles */
+        .dark body {
+            background-color: #111827;
+            color: #F3F4F6;
+        }
+
+        /* Improve text contrast in dark mode */
+        .dark .text-gray-600,
+        .dark .text-gray-700 {
+            color: #D1D5DB !important;
+        }
+
+        .dark .border-gray-200 {
+            border-color: #374151;
+        }
+
+        .dark .bg-gray-50 {
+            background-color: #1F2937;
+        }
+
+        .dark .bg-white {
+            background-color: #111827;
+        }
+
+        /* Improve card visibility in dark mode */
+        .dark .hover\:shadow-lg:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Improve navigation contrast */
+        .dark .nav-links a {
+            color: #E5E7EB;
+        }
+
+        .dark .nav-links a:hover {
+            color: #F3F4F6;
+        }
+
+        /* Improve button contrast */
+        .dark .border {
+            border-color: #374151;
+        }
+
+        .dark .hover\:bg-gray-50:hover {
+            background-color: #374151;
+        }
+
+        /* Improve section backgrounds */
+        .dark section.bg-gray-50 {
+            background-color: #1F2937;
+        }
+
+        /* Improve card backgrounds */
+        .dark .bg-gray-800 {
+            background-color: #1F2937;
+        }
+
+        .dark .bg-gray-900 {
+            background-color: #111827;
+        }
+
+        /* Add transition overlay */
+        .theme-transition-overlay {
+            position: fixed;
+            pointer-events: none;
+            inset: 0;
+            z-index: 9999;
+            transform: scale(0);
+            opacity: 0;
+            border-radius: 50%;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-transition-overlay.light {
+            background: radial-gradient(circle at var(--click-x) var(--click-y), 
+                rgba(255, 255, 255, 0.98) 0%,
+                rgba(255, 255, 255, 0.95) 100%
+            );
+        }
+
+        .theme-transition-overlay.dark {
+            background: radial-gradient(circle at var(--click-x) var(--click-y), 
+                rgba(17, 24, 39, 0.98) 0%,
+                rgba(17, 24, 39, 0.95) 100%
+            );
+        }
+
+        .theme-transition-overlay.expanding {
+            transform: scale(5);
+            opacity: 1;
+        }
+
+        /* Credly badge iframe container */
+        [data-share-badge-host] {
+            max-width: 150px;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+        }
+
+        /* Credly badge iframe */
+        [data-share-badge-host] iframe {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Dark mode adjustments for badge container */
+        .dark [data-share-badge-host] {
+            filter: brightness(0.9);
+        }
     </style>
 
     <!-- Dark mode setup -->
@@ -119,13 +263,13 @@
     </script>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Nandun Bandara - Full Stack Engineer specializing in Node.js, Golang, and AWS. Certified Solutions Architect and Kubernetes Administrator based in Canberra, Australia.">
-    <meta name="keywords" content="Full Stack Engineer, Software Engineer, Node.js, Golang, AWS, Kubernetes, DevOps, Canberra">
+    <meta name="description" content="Nandun Bandara - Senior Full Stack Engineer specializing in Cloud Native applications, AWS, Kubernetes, and DevOps. Expert in Node.js, Golang, and microservices architecture based in Canberra, Australia.">
+    <meta name="keywords" content="Nandun Bandara, Full Stack Engineer, Software Engineer, Node.js Developer, Golang Developer, AWS Solutions Architect, Kubernetes Administrator, DevOps Engineer, Cloud Native, Microservices, Canberra Tech, Australian Software Engineer">
     <meta name="author" content="Nandun Bandara">
     
     <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Nandun Bandara | Full Stack Engineer">
-    <meta property="og:description" content="Full Stack Engineer specializing in Node.js, Golang, and AWS. Based in Canberra, Australia.">
+    <meta property="og:title" content="Nandun Bandara | Senior Full Stack Engineer & Cloud Architect">
+    <meta property="og:description" content="Senior Full Stack Engineer with expertise in Cloud Native applications, AWS, Kubernetes, and modern web technologies. Based in Canberra, Australia.">
     <meta property="og:image" content="assets/images/15895895_1412198105457867_3122597636744650875_o.jpg">
     <meta property="og:url" content="https://nandunbandara.com">
     
@@ -133,6 +277,27 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Nandun Bandara | Full Stack Engineer">
     <meta name="twitter:description" content="Full Stack Engineer specializing in Node.js, Golang, and AWS. Based in Canberra, Australia.">
+
+    <!-- Add structured data for better SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Nandun Bandara",
+      "jobTitle": "Senior Full Stack Engineer",
+      "url": "https://nandunbandara.com",
+      "sameAs": [
+        "https://linkedin.com/in/nandunbandara",
+        "https://medium.com/@nandunbandara"
+      ],
+      "alumniOf": "SLIIT",
+      "knowsAbout": ["Cloud Computing", "AWS", "Kubernetes", "Node.js", "Golang", "DevOps"],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Jeeve Solutions"
+      }
+    }
+    </script>
 </head>
 <body class="font-inter dark:bg-gray-900 dark:text-white">
     <!-- 3D background canvas -->
@@ -153,6 +318,7 @@
             <a href="#experience" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Experience</a>
             <a href="#skills" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Skills</a>
             <a href="#certifications" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Certifications</a>
+            <a href="#blogs" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Blogs</a>
             <a href="#contact" class="font-medium text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400">Contact</a>
         </div>
         
@@ -175,6 +341,7 @@
             <a href="#experience" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Experience</a>
             <a href="#skills" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Skills</a>
             <a href="#certifications" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Certifications</a>
+            <a href="#blogs" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Blogs</a>
             <a href="#contact" class="font-medium text-2xl text-gray-800 dark:text-gray-200">Contact</a>
         </div>
     </div>
@@ -185,20 +352,16 @@
                  alt="Nandun Bandara" 
                  class="w-24 h-24 rounded-full mb-8 object-cover animate-fade-in ring-4 ring-black/5 shadow-lg">
             <h1 class="text-5xl font-bold mb-4 animate-slide-up">
-                👋 Hello! I'm Nandun Bandara
+                👋 Hello! I'm Nandun Bandara | Senior Full Stack Engineer
             </h1>
-            <h2 class="text-2xl font-semibold mb-4 animate-slide-up flex items-center gap-2" style="animation-delay: 200ms">
-                👨‍💻 Software Engineer based in 
-                <span class="flex items-center gap-1">
-                    Canberra, Australia 
-                    <span class="text-2xl">🇦🇺</span>
-                </span>
+            <h2 class="text-2xl font-semibold mb-4 animate-slide-up flex items-center gap-2">
+                👨‍ Cloud Native & DevOps Specialist in Canberra, Australia 🇦🇺
             </h2>
-            <p class="text-gray-600 text-lg leading-relaxed animate-slide-up" style="animation-delay: 400ms">
-                🚀 Passionate Software Engineer with expertise in Health and CareTech. 
-                💡 Specialized in designing and developing microservices with Node.js and Golang, 
-                ☁️ maintaining production-grade Kubernetes clusters on AWS with Terraform, 
-                🔄 and managing CI/CD pipelines on GitLab.
+            <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed animate-slide-up">
+                🚀 Experienced Software Engineer specializing in building scalable cloud-native applications and robust DevOps solutions. 
+                Expert in designing microservices architectures with Node.js and Golang, implementing AWS cloud solutions, 
+                and managing enterprise-grade Kubernetes clusters. AWS Certified Solutions Architect and Certified Kubernetes Administrator 
+                with a proven track record in HealthTech and CareTech industries.
             </p>
             <div class="mt-8 space-x-4 animate-slide-up" style="animation-delay: 600ms">
                 <a href="mailto:nandunbandaraa@gmail.com" class="bg-black text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition inline-block">
@@ -222,9 +385,9 @@
                 <div class="font-bold text-xl mb-2">Jeeve Solutions</div>
                 <div class="mb-4">
                     <h3 class="font-semibold">Software Engineer</h3>
-                    <p class="text-gray-600">September 2023 - Present | Melbourne, Australia</p>
+                    <p class="text-gray-600 dark:text-gray-300">September 2023 - Present | Melbourne, Australia</p>
                 </div>
-                <ul class="list-disc ml-4 text-gray-700 space-y-2">
+                <ul class="list-disc ml-4 text-gray-600 dark:text-gray-300 space-y-2">
                     <li>Design and implement APIs (Node.js) with focus on best practices, test coverage, and documentation</li>
                     <li>Collaborate in architectural decisions for system expansion</li>
                     <li>Integrate third-party services using OAuth and client credentials</li>
@@ -238,14 +401,24 @@
                 <div class="font-bold text-xl mb-2">CareHires</div>
                 <div class="mb-4">
                     <h3 class="font-semibold">Senior Software Engineer</h3>
-                    <p class="text-gray-600">December 2019 - September 2023 | London, UK</p>
+                    <p class="text-gray-600 dark:text-gray-300">December 2019 - September 2023 | London, UK</p>
                 </div>
-                <ul class="list-disc ml-4 text-gray-700 space-y-2">
+                <ul class="list-disc ml-4 text-gray-600 dark:text-gray-300 space-y-2">
                     <li>Led backend and infrastructure development using Kubernetes on AWS, Terraform, Node.js, and Golang</li>
                     <li>Maintained production-grade H/A Kubernetes clusters on EKS</li>
                     <li>Managed CI/CD pipelines on GitLab</li>
                     <li>Provided technical leadership and code review</li>
                 </ul>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+            <div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <span class="text-3xl font-bold block">50+</span>
+                <span class="text-gray-600 dark:text-gray-400">Projects Completed</span>
+            </div>
+            <div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <span class="text-3xl font-bold block">7+</span>
+                <span class="text-gray-600 dark:text-gray-400">Years Experience</span>
             </div>
         </div>
     </section>
@@ -261,7 +434,7 @@
                 <h3 class="font-semibold mb-4 flex items-center gap-2">
                     🔧 Backend Development
                 </h3>
-                <ul class="space-y-2 text-gray-600">
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
                     <li class="flex items-center gap-2">
                         <img src="https://nodejs.org/static/images/logo.svg" class="w-4 h-4" alt="Node.js">
                         Node.js
@@ -278,7 +451,7 @@
                  data-aos="fade-up" 
                  data-aos-delay="200">
                 <h3 class="font-semibold mb-4">Cloud & DevOps</h3>
-                <ul class="space-y-2 text-gray-600">
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
                     <li>AWS (Certified Solutions Architect)</li>
                     <li>Kubernetes (CKA)</li>
                     <li>Terraform</li>
@@ -289,7 +462,7 @@
                  data-aos="fade-up" 
                  data-aos-delay="300">
                 <h3 class="font-semibold mb-4">Frontend Development</h3>
-                <ul class="space-y-2 text-gray-600">
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
                     <li>Angular</li>
                     <li>TypeScript</li>
                     <li>Responsive Design</li>
@@ -304,65 +477,157 @@
             🏆 Certifications & Awards
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Certifications Column -->
             <div class="space-y-6" data-aos="fade-up" data-aos-delay="100">
-                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                <h3 class="text-xl font-semibold mb-8 flex items-center gap-2">
                     📜 Certifications
                 </h3>
-                <div class="space-y-4">
-                    <a href="https://www.credly.com/badges/your-aws-badge-id" 
-                       target="_blank" 
-                       class="p-4 border border-gray-200 rounded-lg flex items-center gap-3 hover:shadow-md transition-all duration-300 group">
-                        <img src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Solutions-Architect-Associate_badge.3419559c682629072f1eb968d59dea0741772c0f.png" 
-                             class="w-12 h-12 group-hover:scale-110 transition-transform duration-300" 
-                             alt="AWS Certification">
-                        <div>
-                            <p class="font-medium">AWS Certified Solutions Architect – Associate</p>
-                            <p class="text-sm text-gray-500">Click to verify credential</p>
-                        </div>
-                    </a>
-                    <a href="https://www.credly.com/badges/your-cka-badge-id" 
-                       target="_blank" 
-                       class="p-4 border border-gray-200 rounded-lg flex items-center gap-3 hover:shadow-md transition-all duration-300 group">
-                        <img src="https://www.cncf.io/wp-content/uploads/2020/08/kubernetes-cka-color.svg" 
-                             class="w-12 h-12 group-hover:scale-110 transition-transform duration-300" 
-                             alt="CKA Certification">
-                        <div>
-                            <p class="font-medium">Certified Kubernetes Administrator</p>
-                            <p class="text-sm text-gray-500">Click to verify credential</p>
-                        </div>
-                    </a>
+                <div class="flex flex-wrap justify-center gap-8">
+                    <!-- AWS Certification Badge -->
+                    <div style="margin-right: 1rem;" 
+                         data-iframe-width="150" 
+                         data-iframe-height="270" 
+                         data-share-badge-id="92bc0dde-fc2c-4418-b207-d36ca70b0d33" 
+                         data-share-badge-host="https://www.credly.com">
+                    </div>
+
+                    <!-- Kubernetes Certification Badge -->
+                    <div data-iframe-width="150" 
+                         data-iframe-height="270" 
+                         data-share-badge-id="f590cdee-63bf-4027-83c7-09b28b3e5869" 
+                         data-share-badge-host="https://www.credly.com">
+                    </div>
                 </div>
+                <!-- Single script for both badges -->
+                <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
             </div>
+
+            <!-- Awards & Publications Column -->
             <div class="space-y-6" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                <h3 class="text-xl font-semibold mb-8 flex items-center gap-2">
                     🏅 Awards & Publications
                 </h3>
                 <div class="space-y-4">
-                    <div class="p-4 border border-gray-200 rounded-lg">
+                    <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                         <h4 class="font-medium mb-2">CTF Competitions</h4>
-                        <ul class="space-y-2 text-gray-700">
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300">
                             <li class="flex items-center gap-2">🏆 Winners at "Hack Me If You Can" CTF 2015</li>
                             <li class="flex items-center gap-2">🏆 Winners at "Hack Me If You Can" CTF 2016</li>
                             <li class="flex items-center gap-2">🏆 Winners at HackIT 2K17 CTF</li>
                         </ul>
                     </div>
-                    <div class="p-4 border border-gray-200 rounded-lg">
+                    <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                         <h4 class="font-medium mb-2">Academic Achievements</h4>
-                        <ul class="space-y-2 text-gray-700">
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300">
                             <li class="flex items-center gap-2">🎓 Regional Topper (Asia) - Mathematics</li>
                             <li class="flex items-center gap-2">🎓 Regional Topper (Asia) - Computer Science</li>
                         </ul>
                     </div>
-                    <div class="p-4 border border-gray-200 rounded-lg">
+                    <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                         <h4 class="font-medium mb-2">Publications</h4>
-                        <a href="link-to-your-publication" 
+                        <a href="https://ieeexplore.ieee.org/document/8629811" 
                            target="_blank" 
-                           class="text-gray-700 hover:text-black transition-colors flex items-center gap-2">
+                           class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2">
                             📄 Decentralized Ledger for Land and Property Transactions in Sri Lanka
                         </a>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Published in IEEE International Conference on Information and Automation for Sustainability (ICIAfS)</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section id="blogs" class="px-16 py-20 bg-gray-50 dark:bg-gray-800">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3" data-aos="fade-up">
+            ✍️ Latest Articles
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Gemini Article -->
+            <a href="https://medium.com/google-developer-group-canberra/add-gemini-to-your-next-web-project-a53fe4679951" 
+               target="_blank"
+               class="group" 
+               data-aos="fade-up" 
+               data-aos-delay="100">
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
+                            <span>Nov 22, 2024</span>
+                            <span>•</span>
+                            <span>GDG Canberra</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            Add Gemini to your Node.js Project
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
+                            A step-by-step guide on integrating Google's Gemini API into your Node.js environment, perfect for both beginners and experienced developers.
+                        </p>
+                        <div class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+                            Read More 
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- CTF Walkthrough Article -->
+            <a href="https://medium.com/sliit-foss/hack-me-if-you-can-ctf-2016-catch-the-droid-walkthrough-4953b1048721" 
+               target="_blank"
+               class="group" 
+               data-aos="fade-up" 
+               data-aos-delay="200">
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
+                            <span>Nov 8, 2016</span>
+                            <span>•</span>
+                            <span>SLIIT FOSS Community</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            "Hack Me If You Can" CTF 2016 — Catch the Droid Walkthrough
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
+                            A detailed walkthrough of the Catch the Droid challenge from the SLIIT CodeFest 2016 CTF competition.
+                        </p>
+                        <div class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+                            Read More 
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Gulp.js Article -->
+            <a href="https://medium.com/sliit-foss/automate-a-ftp-upload-with-gulp-js-4fde363cf9e8" 
+               target="_blank"
+               class="group" 
+               data-aos="fade-up" 
+               data-aos-delay="300">
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
+                            <span>Aug 11, 2017</span>
+                            <span>•</span>
+                            <span>SLIIT FOSS Community</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            Automate a FTP upload with Gulp.js
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
+                            Learn how to automate your FTP deployment workflow using Gulp.js, making website updates more efficient.
+                        </p>
+                        <div class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+                            Read More 
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -431,130 +696,165 @@
         // Three.js Background Animation
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        const renderer = new THREE.WebGLRenderer({ 
+            alpha: true,
+            antialias: true 
+        });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById('background-canvas').appendChild(renderer.domElement);
 
-        // Create animated background particles
+        // Create animated background particles with more subtle settings
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 5000;
+        const particlesCount = 200; // Reduced from 5000
         const posArray = new Float32Array(particlesCount * 3);
 
         for(let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 5;
+            posArray[i] = (Math.random() - 0.5) * 8;
         }
 
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
         const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.005,
-            color: '#000000'
+            size: 0.002, // Reduced size
+            color: '#808080', // Changed to gray
+            transparent: true,
+            opacity: 0.3, // Reduced opacity
+            blending: THREE.AdditiveBlending
         });
 
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
-        camera.position.z = 2;
+        camera.position.z = 3;
 
-        // // Custom cursor animation
-        // const cursorDot = document.querySelector('.cursor-dot');
-        // const cursorOutline = document.querySelector('.cursor-outline');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            gsap.to(cursorDot, {
-                x: posX - 2.5,
-                y: posY - 2.5,
-                duration: 0.1
-            });
-
-            gsap.to(cursorOutline, {
-                x: posX - 15,
-                y: posY - 15,
-                duration: 0.3
-            });
-        });
-
-        // Animate particles
+        // Slower, more subtle animation
         function animate() {
             requestAnimationFrame(animate);
-            particlesMesh.rotation.x += 0.0003;
-            particlesMesh.rotation.y += 0.0005;
+            particlesMesh.rotation.x += 0.0001; // Reduced speed
+            particlesMesh.rotation.y += 0.0002; // Reduced speed
             renderer.render(scene, camera);
         }
 
         animate();
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Parallax effect for hero section
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.005;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.005;
-
-            gsap.to('.hero-content', {
-                x: moveX,
-                y: moveY,
-                duration: 1,
-                ease: 'power2.out'
-            });
-        });
-
-        // Smooth scroll animation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                
-                gsap.to(window, {
-                    duration: 1,
-                    scrollTo: target,
-                    ease: 'power2.inOut'
+        // Optimize performance on scroll
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    particlesMesh.rotation.y = scrolled * 0.0001;
+                    ticking = false;
                 });
+                ticking = true;
+            }
+        });
+
+        // More efficient resize handler
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }, 250);
+        });
+
+        // Pause animation when tab is not visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                renderer.setAnimationLoop(null);
+            } else {
+                renderer.setAnimationLoop(animate);
+            }
+        });
+    </script>
+
+    <div class="theme-transition-overlay" id="theme-transition"></div>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeTransition = document.getElementById('theme-transition');
+        
+        function updateThemeWithAnimation(event) {
+            const isDark = !document.documentElement.classList.contains('dark');
+            
+            // Get click coordinates for the expansion origin
+            const rect = themeToggleBtn.getBoundingClientRect();
+            const clickX = rect.left + rect.width / 2;
+            const clickY = rect.top + rect.height / 2;
+            
+            // Set the expansion origin
+            themeTransition.style.setProperty('--click-x', `${clickX}px`);
+            themeTransition.style.setProperty('--click-y', `${clickY}px`);
+            
+            // Set the appropriate class for the overlay
+            themeTransition.classList.remove('light', 'dark');
+            themeTransition.classList.add(isDark ? 'dark' : 'light');
+            
+            // Trigger the expansion animation
+            requestAnimationFrame(() => {
+                themeTransition.classList.add('expanding');
+                
+                // Update theme after a small delay
+                setTimeout(() => {
+                    document.documentElement.classList.toggle('dark');
+                    localStorage.theme = isDark ? 'dark' : 'light';
+                    
+                    // Reset the overlay
+                    themeTransition.classList.remove('expanding');
+                }, 300);
+            });
+        }
+
+        themeToggleBtn.addEventListener('click', updateThemeWithAnimation);
+
+        // Initial theme setup
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Add after opening body tag -->
+    <div id="loading-screen" class="fixed inset-0 bg-white dark:bg-gray-900 z-[9999] flex items-center justify-center">
+        <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-black dark:border-white"></div>
+    </div>
+
+    <!-- Add to your existing scripts -->
+    <script>
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            gsap.to(loadingScreen, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => loadingScreen.remove()
             });
         });
     </script>
 
+    <!-- Add before closing body tag -->
+    <button id="scroll-to-top" 
+            class="fixed bottom-8 right-8 bg-black dark:bg-white text-white dark:text-black p-3 rounded-full opacity-0 transition-opacity duration-300 hover:scale-110"
+            aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
     <script>
-        // Dark mode toggle
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
         
-        themeToggleBtn.addEventListener('click', function() {
-            document.documentElement.classList.toggle('dark');
-            
-            // Save preference to localStorage
-            if (document.documentElement.classList.contains('dark')) {
-                localStorage.theme = 'dark';
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.remove('opacity-0');
             } else {
-                localStorage.theme = 'light';
+                scrollToTopBtn.classList.add('opacity-0');
             }
         });
-
-        // Mobile menu functionality
-        const mobileMenuBtn = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
         
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('translate-x-full');
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('translate-x-full');
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                mobileMenu.classList.add('translate-x-full');
-            }
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>

@@ -31,3 +31,21 @@ $(document).scroll(function(){
         $('#btt').fadeOut();
     }
 });
+
+// Create new file for page transitions
+document.addEventListener('DOMContentLoaded', () => {
+    gsap.from('nav', {
+        y: -100,
+        opacity: 0,
+        duration: 1,
+        ease: 'power4.out'
+    });
+
+    gsap.from('.hero-content > *', {
+        y: 100,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power4.out'
+    });
+});
